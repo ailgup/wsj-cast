@@ -48,7 +48,7 @@ for f in filenames:
     os.remove(f)
   except OSError:
       pass    
-responce=cloudinary.uploader.upload("pod_combo.mp3")
+responce=cloudinary.uploader.upload("pod_combo.mp3", resource_type='raw')
 responce.decode()
 print(responce[url])
 exit(1)

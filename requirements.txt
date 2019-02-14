@@ -3,3 +3,4 @@ gunicorn
 django-heroku
 pydub
 urllib3
+cloudinary

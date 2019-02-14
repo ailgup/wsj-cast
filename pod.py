@@ -3,7 +3,7 @@ from pydub import AudioSegment
 import urllib3
 urllib3.disable_warnings()
 import os
-
+import cloudinary
 http = urllib3.PoolManager()
 #Min Breifing,Tech News Breifing, Whats News,  Your Money
 podcast_urls=['http://feeds.panoply.fm/WSJ7928321669?limit=1','http://feeds.panoply.fm/WSJ8523681216?limit=1','http://feeds.panoply.fm/WSJ4886593505?limit=1','http://feeds.panoply.fm/WSJ8175120842?limit=1']
@@ -48,6 +48,8 @@ for f in filenames:
     os.remove(f)
   except OSError:
       pass    
-
+responce=cloudinary.uploader.upload("pod_combo.mp3")
+responce.decode()
+print(responce[url])
 exit(1)
   

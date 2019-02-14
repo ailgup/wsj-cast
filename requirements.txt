@@ -1,3 +1,6 @@
 django
 gunicorn
 django-heroku
+pydub
+urllib3
+os

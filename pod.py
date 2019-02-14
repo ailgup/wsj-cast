@@ -49,7 +49,7 @@ for f in filenames:
   except OSError:
       pass    
 responce=cloudinary.uploader.upload("pod_combo.mp3", resource_type='raw')
-responce.decode()
-print(responce[url])
+
+print(responce[url].decode())
 exit(1)
   

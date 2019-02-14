@@ -3,7 +3,7 @@ from pydub import AudioSegment
 import urllib3
 urllib3.disable_warnings()
 import os
-import cloudinary
+import cloudinary.uploader
 http = urllib3.PoolManager()
 #Min Breifing,Tech News Breifing, Whats News,  Your Money
 podcast_urls=['http://feeds.panoply.fm/WSJ7928321669?limit=1','http://feeds.panoply.fm/WSJ8523681216?limit=1','http://feeds.panoply.fm/WSJ4886593505?limit=1','http://feeds.panoply.fm/WSJ8175120842?limit=1']

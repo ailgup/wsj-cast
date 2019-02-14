@@ -50,7 +50,7 @@ for f in filenames:
       pass    
 responce=cloudinary.uploader.upload("pod_combo.mp3", resource_type='raw')
 
-print(responce['url'].decode())
+print(responce['url'])
 #todo, remove "old" file if needed
 # text/email out link
 #give option to pause on web

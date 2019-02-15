@@ -40,15 +40,9 @@ def concat_files(source,dest):
     total_sound=total_sound+AudioSegment.from_mp3(s)[30000:]
   total_sound.export(dest, format="mp3")
 
-def send_email(link):
-   message="Daily WSJ Podcast Digest "+link
-   return requests.post(
-        "https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages",
-        auth=("api", "YOUR_API_KEY"),
-        data={"from": "Excited User <mailgun@YOUR_DOMAIN_NAME>",
-              "to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
-              "subject": "Hello",
-              "text": "Testing some Mailgun awesomness!"})
+def send_notification(link):
+  pb = Pushbullet(api_key)
+  push = pb.push_link("Todays News", link)
   
 for l in podcast_urls:
   url=getLink(l)
@@ -64,6 +58,7 @@ for f in filenames:
 
 responce=cloudinary.uploader.upload("pod_combo.mp3", resource_type='raw', public_id = ("wsj-"+str(date.today())))
 print(responce['url'])
+send_notification(responce['url'])
 #todo, remove "old" file if needed
 # text/email out link
 #give option to pause on web

@@ -3,7 +3,6 @@ from pydub import AudioSegment
 import urllib3
 urllib3.disable_warnings()
 import os
-import config
 from pushbullet import Pushbullet
 import cloudinary.uploader
 from datetime import date
@@ -41,7 +40,7 @@ def concat_files(source,dest):
   total_sound.export(dest, format="mp3")
 
 def send_notification(link):
-  pb = Pushbullet(api_key)
+  pb = Pushbullet(os.environ['PUSHBULLET_API'])
   push = pb.push_link("Todays News", link)
   
 for l in podcast_urls:

@@ -4,3 +4,4 @@ django-heroku
 pydub
 urllib3
 cloudinary
+pushbullet

@@ -3,7 +3,10 @@ from pydub import AudioSegment
 import urllib3
 urllib3.disable_warnings()
 import os
+import config
+from pushbullet import Pushbullet
 import cloudinary.uploader
+from datetime import date
 http = urllib3.PoolManager()
 #Min Breifing,Tech News Breifing, Whats News,  Your Money
 podcast_urls=['http://feeds.panoply.fm/WSJ7928321669?limit=1','http://feeds.panoply.fm/WSJ8523681216?limit=1','http://feeds.panoply.fm/WSJ4886593505?limit=1','http://feeds.panoply.fm/WSJ8175120842?limit=1']
@@ -36,6 +39,16 @@ def concat_files(source,dest):
   for s in source[1:]:
     total_sound=total_sound+AudioSegment.from_mp3(s)[30000:]
   total_sound.export(dest, format="mp3")
+
+def send_email(link):
+   message="Daily WSJ Podcast Digest "+link
+   return requests.post(
+        "https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages",
+        auth=("api", "YOUR_API_KEY"),
+        data={"from": "Excited User <mailgun@YOUR_DOMAIN_NAME>",
+              "to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
+              "subject": "Hello",
+              "text": "Testing some Mailgun awesomness!"})
   
 for l in podcast_urls:
   url=getLink(l)
@@ -48,11 +61,10 @@ for f in filenames:
     os.remove(f)
   except OSError:
       pass    
-responce=cloudinary.uploader.upload("pod_combo.mp3", resource_type='raw')
 
+responce=cloudinary.uploader.upload("pod_combo.mp3", resource_type='raw', public_id = ("wsj-"+str(date.today())))
 print(responce['url'])
 #todo, remove "old" file if needed
 # text/email out link
 #give option to pause on web
-exit(1)
-  
+

@@ -40,7 +40,7 @@ def concat_files(source,dest):
   total_sound.export(dest, format="mp3")
 
 def send_notification(link):
-  pb = Pushbullet(os.environ['PUSHBULLET_API'])
+  pb = Pushbullet(os.environ['PUSHBULLET_KEY'])
   push = pb.push_link("Todays News", link)
   
 for l in podcast_urls:

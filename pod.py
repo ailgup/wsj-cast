@@ -42,22 +42,26 @@ def concat_files(source,dest):
 def send_notification(link):
   pb = Pushbullet(os.environ['PUSHBULLET_KEY'])
   push = pb.push_link("Todays News", link)
-  
-for l in podcast_urls:
-  url=getLink(l)
-  if url:
-    downloadUrl(url,str(podcast_urls.index(l))+".mp3")
-concat_files(filenames,"pod_combo.mp3")
-print("Made pod_combo.mp3")
-for f in filenames:
-  try:
-    os.remove(f)
-  except OSError:
-      pass    
 
-responce=cloudinary.uploader.upload("pod_combo.mp3", resource_type='raw', public_id = ("wsj-"+str(date.today())))
-print(responce['url'])
-send_notification(responce['url'])
+def main():  
+  for l in podcast_urls:
+    url=getLink(l)
+    if url:
+      downloadUrl(url,str(podcast_urls.index(l))+".mp3")
+  concat_files(filenames,"pod_combo.mp3")
+  print("Made pod_combo.mp3")
+  for f in filenames:
+    try:
+      os.remove(f)
+    except OSError:
+        pass    
+
+  responce=cloudinary.uploader.upload("pod_combo.mp3", resource_type='raw', public_id = ("wsj-"+str(date.today())))
+  print(responce['url'])
+  send_notification(responce['url'])
+  
+if date.today().weekday()<5:
+  main()
 #todo, remove "old" file if needed
 # text/email out link
 #give option to pause on web
